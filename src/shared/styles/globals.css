@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* color */
+/* $blue-dark: #084c62;
+$blue-light: #0b558c;
+$orange: #b34e26; */
+
+/* layout of the page */
+body {
+  background-color: white;
+}
+#__next {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+
+  /* background grid */
+  /* background-color: white; */
+  background-size: 6rem 4rem;
+  background-image: linear-gradient(to right, #f0f0f0 1px, rgba(0, 0, 0, 0) 1px),
+    linear-gradient(to bottom, #f0f0f0 1px, rgba(0, 0, 0, 0) 1px);
+
+  /* default text color */
+  color: #64748b;
+}
+main {
+  flex: 1 1 0%;
+}
+.custom-background-vision {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  pointer-events: none;
+  background-image: radial-gradient(#fff, rgba(255, 255, 255, 0));
+  /* background-image: radial-gradient(#da0707, rgba(224, 4, 4, 0)); */
+  /* aspect-ratio: 1/1; */
+  inset: 0;
+  margin: auto;
+}
+
+/* custom box shadow */
+.custom-shadow-xs {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
