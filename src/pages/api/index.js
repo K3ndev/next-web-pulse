@@ -1,19 +1,18 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import PerfLeaderboard from 'performance-leaderboard';
 
-// i dunno if is this safe hahaha, for now we need to limit the request
-const API_KEY = '1djnewjnk32jndew';
+// const API_KEY = '1djnewjnk32jndew';
 
 export default async function handler(req, res) {
-  const { url, key } = req.query;
+  const { url } = req.query;
   // sample request
   // localhost:3000/api?url=https://www.google.com,https://www.facebook.com/&key=1djnewjnk32jndew
 
   // Check API key
-  if (key !== API_KEY) {
-    res.status(401).json({ error: 'Unauthorized' });
-    return;
-  }
+  // if (key !== API_KEY) {
+  //   res.status(401).json({ error: 'Unauthorized' });
+  //   return;
+  // }
 
   // checker
   if (url === undefined) {
@@ -25,7 +24,7 @@ export default async function handler(req, res) {
   // console.log(URLS);
   const options = {
     axePuppeteerTimeout: 30000, // 30 seconds
-    writeLogs: true, // Store audit data
+    writeLogs: false, // Store audit data
     logDirectory: '.log', // Default audit data files stored at `.log`
     readFromLogDirectory: false, // Skip tests with existing logs
     // onlyCategories: ["performance", "accessibility"],
@@ -52,6 +51,3 @@ export default async function handler(req, res) {
 // todo, how to limit request ?
 // - [X] having a key authentication?
 // -- does it leak in request time?
-
-// todo generate a report of data
-// - screenshot?
