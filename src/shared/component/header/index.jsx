@@ -36,13 +36,13 @@ export function Header() {
       menuClose.classList.add('hidden');
       menuOpen.classList.remove('hidden');
       menuContainer.classList.add('hidden');
-      document.body.classList.remove('overflow-hidden');
+      // document.body.classList.remove('overflow-hidden');
     }
     if (!currentToggle()) {
       menuOpen.classList.add('hidden');
       menuClose.classList.remove('hidden');
       menuContainer.classList.remove('hidden');
-      document.body.classList.add('overflow-hidden');
+      // document.body.classList.add('overflow-hidden');
     }
   };
 
@@ -56,7 +56,7 @@ export function Header() {
       menuClose.classList.add('hidden');
       menuOpen.classList.remove('hidden');
       menuContainer.classList.add('hidden');
-      document.body.classList.remove('overflow-hidden');
+      // document.body.classList.remove('overflow-hidden');
     }
   };
 
