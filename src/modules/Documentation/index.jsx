@@ -5,11 +5,11 @@ import { Header, Footer } from '../../shared/component/index';
 
 function Documentation() {
   const codeRequest = `cat fetch.js
-  async function fetchTest() {
-    const URL = 'https://webpulse.com/api?url=https://www.google.com'
+  const URL = 'https://webpulse.com/api?url=https://www.google.com'
+  async function fetchTest(URL) {
     try {
-      let response = await fetch(URL)
-      let data = await response.json()
+      const response = await fetch(URL)
+      const data = await response.json()
       return data
     } catch(err) { return err }
   }`;

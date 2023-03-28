@@ -27,7 +27,10 @@ const Home = () => {
               id="scanInput"
               className="flex flex-col items-center justify-center gap-1 md:flex-row md:gap-2"
             >
-              <div className="h-100 1-100 relative w-full shadow-md md:w-auto">
+              <div
+                className="h-100 1-100 tooltip relative w-full shadow-md md:w-auto"
+                data-tip="Enter the URL here"
+              >
                 <p className="absolute inset-y-0 flex items-center pl-[0.75rem]">
                   https://
                 </p>
@@ -37,8 +40,7 @@ const Home = () => {
                   type="text"
                   placeholder="webpulse.com"
                   // class="ut-none-outline"
-
-                  className="w-full pl-[4.9rem] pt-[0.28rem] pb-[0.28rem] md:w-auto"
+                  className="w-full border border-gray-600 pl-[4.9rem] pt-[0.28rem] pb-[0.28rem] outline-0  md:w-auto"
                 />
               </div>
 

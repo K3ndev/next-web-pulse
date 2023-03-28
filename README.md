@@ -14,20 +14,22 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
---- 
-## Limiting the API request (our server is only free tier)
+---
+
+<!-- ## Limiting the API request (our server is only free tier)
 - [ ] Limiting outsiders by requiring a unique authentication key that is only accessible with an account.
 - [ ] Limiting server traffic by allowing only one request (with a maximum of two URLs) per minute.
-- [ ] Caching the scan result from the home page to avoid unnecessary rescanning.
+- [ ] Caching the scan result from the home page to avoid unnecessary rescanning. -->
 
 ## Functionality of the site
-- [ ] Public API
+
+- [x] Public API
 - [ ] Getting suggestions from Lighthouse
-- [ ] Scanning multiple URLs 
+- [ ] Scanning multiple URLs
 - [ ] Creating an account / signing in with authentication
 - [ ] Automation
 - [ ] Generating a report from the scan results
 - [ ] Caching results from the home page
-- [ ] Input validation (including XSS) 
+- [ ] Input validation (including XSS)
 - [ ] Password complexity
 - [ ] Session management
