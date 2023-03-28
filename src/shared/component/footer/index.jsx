@@ -5,8 +5,8 @@ export function Footer() {
   return (
     <footer className="z-30 bg-[#084c62] py-20 text-white">
       <div className="mx-auto max-w-6xl px-4 text-slate-400">
-        <div className="w-full flex flex-col md:flex-row gap-5 md:gap-0 md:justify-between">
-          <div className="flex flex-col md:flex-col items-center md:items-start">
+        <div className="flex w-full flex-col gap-5 md:flex-row md:justify-between md:gap-0">
+          <div className="flex flex-col items-center md:flex-col md:items-start">
             <Image
               src="/assets/logo_light.png"
               width="120"
@@ -19,16 +19,16 @@ export function Footer() {
               adipisicing elit. Ea, recusandae.
             </p>
           </div>
-          <div className="flex gap-5 justify-center">
+          <div className="flex justify-center gap-5">
             <div>
-              <h3 className="text-slate-100 mb-2 font-bold	">Projects</h3>
+              <h3 className="mb-2 font-bold text-slate-100	">Projects</h3>
               <p className="cursor-pointer hover:text-slate-300">Contribute</p>
               <p className="cursor-pointer hover:text-slate-300">Changelog</p>
               <p className="cursor-pointer hover:text-slate-300">Releases</p>
               <p className="cursor-pointer hover:text-slate-300">Docs API</p>
             </div>
             <div>
-              <h3 className="text-slate-100 mb-2 font-bold">Community</h3>
+              <h3 className="mb-2 font-bold text-slate-100">Community</h3>
               <p className="cursor-pointer hover:text-slate-300">
                 Join Discord
               </p>
@@ -45,11 +45,11 @@ export function Footer() {
           </div>
         </div>
         <hr className="my-4" />
-        <div className="flex justify-between flex-col md:flex-row">
+        <div className="flex flex-col justify-between md:flex-row">
           <p className="text-center">
             © 2023 webpulse.com All rights reserved.
           </p>
-          <div className="flex gap-2 justify-center">
+          <div className="flex justify-center gap-2">
             <div className="cursor-pointer hover:text-slate-300">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,11 @@ export function Footer() {
                 </g>
               </svg>
             </div>
-            <div className="cursor-pointer hover:text-slate-300">
+            <a
+              className="cursor-pointer hover:text-slate-300"
+              href="https://github.com/K3ndev/next-web-pulse"
+              target="_blank"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"
@@ -109,7 +113,7 @@ export function Footer() {
                   d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2c2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2a4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6c-.6.6-.6 1.2-.5 2V21"
                 ></path>
               </svg>
-            </div>
+            </a>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { Header, Footer } from '../../shared/component/index';
 
 function Documentation() {
   const codeRequest = `cat fetch.js
-  async function getMenu() {
+  async function fetchTest() {
     const URL = 'https://webpulse.com/api?url=https://www.google.com'
     try {
       let response = await fetch(URL)

@@ -1,14 +1,37 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // eslint-disable-next-line import/prefer-default-export
 export function Header() {
   const [isLoggedIn] = useState(false);
+  const [previousScroll, setPreviousScroll] = useState(0);
+  const [headerClass, setHeaderClass] = useState('custom-header-none');
+
+  const handleScroll = () => {
+    const currentScroll =
+      window.pageYOffset || document.documentElement.scrollTop;
+
+    if (currentScroll > previousScroll) {
+      setHeaderClass('custom-header');
+    } else {
+      setHeaderClass('custom-header-none');
+    }
+    setPreviousScroll(currentScroll);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <header className="custom-shadow-xs fixed top-0 left-0 right-0  z-30 border border-[#e5e7eb] bg-white">
-      <nav className="h-100 mx-auto h-20 max-w-6xl px-4 flex justify-between w-full items-center">
+    <header
+      className={`fixed top-0 left-0 right-0  z-30 border border-[#e5e7eb] bg-white ${headerClass}`}
+      id="header"
+    >
+      <nav className="h-100 mx-auto flex h-20 w-full max-w-6xl items-center justify-between px-4">
         <div className="cursor-pointer">
           <Link href="/">
             <Image
@@ -20,17 +43,19 @@ export function Header() {
             />
           </Link>
         </div>
-        <ul className="flex gap-4 items-center">
+        <ul className="flex items-center gap-4">
           <li className="cursor-pointer text-slate-500 hover:text-slate-800">
             <Link href="/documentation">Docs</Link>
           </li>
           <li className="cursor-pointer text-slate-500 hover:text-slate-800">
-            <a href="https://github.com/K3ndev/next-web-pulse">Github</a>
+            <a href="https://github.com/K3ndev/next-web-pulse" target="_blank">
+              Github
+            </a>
           </li>
           {!isLoggedIn && (
             <Link
               href="/login"
-              className=" hover:bg-[#F8F9FA] cursor-pointer text-slate-500 border border-gray-300 py-1 px-4 rounded-md flex items-center gap-1"
+              className=" flex cursor-pointer items-center gap-1 rounded-md border border-gray-300 py-1 px-4 text-slate-500 hover:bg-[#F8F9FA]"
             >
               <div>Account</div>
               <svg
