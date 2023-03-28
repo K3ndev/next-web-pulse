@@ -28,18 +28,19 @@ $orange: #b34e26; */
   /* default text color */
   /* color: #64748b; */
 
-  /* d */
+  /* font */
   font-family: 'Lato', sans-serif;
-
-  /* z-index: -1; */
 }
 main {
   flex: 1 1 0%;
+
+  position: relative;
+  z-index: 1;
 }
 .custom-background-vision {
   position: fixed;
   width: 100%;
-  z-index: -1;
+  z-index: 1;
   pointer-events: none;
   background-image: radial-gradient(#fff, rgba(255, 255, 255, 0));
   /* background-image: radial-gradient(#da0707, rgba(224, 4, 4, 0)); */
