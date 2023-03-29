@@ -8,7 +8,7 @@ function LoginForm() {
   const passwordInput = useRef();
   const SignIn = (e) => {
     e.preventDefault();
-    console.log('logged');
+    // console.log('logged');
   };
 
   return (

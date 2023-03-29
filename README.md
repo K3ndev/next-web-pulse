@@ -23,12 +23,17 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Functionality of the site
 
+- [x] Linting (clean code)
 - [x] Public API
-- [ ] Validation, valid input and xss validation
-- [ ] Password complexity
-- [ ] Creating an account / signing in with authentication
+- [x] Scanning Multiple urls from public api
+- [x] Scanning result from home page
+- [x] Validation -> valid input
+- [ ] validation -> no xss input
+- [x] Simple password complexity
+- [ ] Creating an account / signing in with supabase
+- [ ] Authentication
 - [ ] Session management
-- [ ] Automation
 - [ ] User Dashboard
-- [ ] Scanning multiple URLs
-- [ ] Generating a report from the scan results
+- [ ] Scanning multiple urls from user dashboard
+- [ ] Generating a pdf report from user dashboard
+- [ ] Automation from user dashboard

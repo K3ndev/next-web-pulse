@@ -39,7 +39,8 @@ function Result(props) {
           <div className="flex flex-col">
             <h1>URL</h1>
             <p>
-              <span className="hidden md:inline">https://</span>${url}/
+              <span className="hidden md:inline">https://</span>
+              {url}
             </p>
           </div>
           <div className="flex flex-col">

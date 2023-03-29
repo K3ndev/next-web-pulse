@@ -37,7 +37,7 @@ export default async function handler(req, res) {
   await new Promise((resolve) => setTimeout(resolve, 10000));
   try {
     // const urls = ['https://www.google.com'];
-    const results = await PerfLeaderboard(URLS, 3, options);
+    const results = await PerfLeaderboard(URLS, 2, options);
     res.status(200).json(results);
   } catch (error) {
     // console.error(error);
@@ -47,7 +47,3 @@ export default async function handler(req, res) {
 
 // url
 // url need to have https://
-
-// todo, how to limit request ?
-// - [X] having a key authentication?
-// -- does it leak in request time?
