@@ -1,7 +1,35 @@
+import { useRef, useState } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import { Header, Footer } from '../../shared/component/index';
+import { emailSchema, passwordSchema } from '../../shared/helper/validation';
 
 function SignUpForm() {
+  const emailInput = useRef();
+  const passwordInput = useRef();
+  const [isValidEmail, setIsValidEmail] = useState(null);
+  const [isValidPassword, setIsValidPassword] = useState(null);
+  const createAccount = (e) => {
+    e.preventDefault();
+    const validatedEmail = emailSchema.safeParse(emailInput.current.value);
+    const validatedPassword = passwordSchema.safeParse(
+      passwordInput.current.value
+    );
+
+    if (validatedEmail.success === false) {
+      setIsValidEmail(false);
+    }
+    if (validatedEmail.success === true) {
+      setIsValidEmail(true);
+    }
+
+    if (validatedPassword.success === false) {
+      setIsValidPassword(false);
+    }
+    if (validatedPassword.success === true) {
+      setIsValidPassword(true);
+    }
+  };
   return (
     <>
       <Head>
@@ -15,7 +43,74 @@ function SignUpForm() {
       <Header />
       <main className="mt-20">
         <section className="py-20">
-          <div className="mx-auto max-w-6xl px-4">Sign Up</div>
+          <div className="mx-auto max-w-6xl px-4">
+            {/* card */}
+            <div className="md:shadow mx-auto max-w-[460px] mt-12">
+              {/* card-body */}
+              <div className="px-10 py-20 border shadow-lg">
+                <h2 className="text-center mb-5 text-2xl typo-playfair font-bold">
+                  Create an Account
+                </h2>
+                <div className="mb-4">
+                  <input
+                    ref={emailInput}
+                    type="email"
+                    className={`w-full border outline-0 border-gray-600 ${
+                      isValidEmail === true && 'border-gray-600'
+                    } ${isValidEmail === false && 'border-red-600'}`}
+                  />
+                  <label htmlFor="email">Email</label>
+                  {isValidEmail === false && (
+                    <div className="alert alert-error shadow-lg px-2 py-2">
+                      <p className="text-sm">
+                        Please enter a valid email address.
+                      </p>
+                    </div>
+                  )}
+                  <label htmlFor="email">Email</label>
+                </div>
+                <div className="mb-4">
+                  <input
+                    ref={passwordInput}
+                    type="password"
+                    className={`w-full border outline-0 border-gray-600 ${
+                      isValidPassword === true && 'border-gray-600'
+                    } ${isValidPassword === false && 'border-red-600'}`}
+                  />
+                  <label htmlFor="password">Password</label>
+                  {isValidPassword === false && (
+                    <div className="alert alert-error shadow-lg px-2 py-2">
+                      <p className="text-sm">
+                        Password must be at least 8 characters long.
+                      </p>
+                    </div>
+                  )}
+                  <label htmlFor="password">Password</label>
+                </div>
+                <div className="mb-2">
+                  <input type="checkbox" />
+                  <label htmlFor="passwordRemembered">Remember Password</label>
+                </div>
+                <div>
+                  <button
+                    className="btn btn-primary w-full"
+                    onClick={(e) => {
+                      createAccount(e);
+                    }}
+                  >
+                    Create
+                  </button>
+                </div>
+                <hr className="my-4" />
+                <div className="mb-4">
+                  <p className="text-center">You have an account already?</p>
+                  <Link className="btn btn-secondary w-full" href="./login">
+                    Login an around here
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
       <Footer />
