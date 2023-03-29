@@ -117,6 +117,75 @@ function Documentation() {
               <Highlighter code={codeResponse} />
             </div>
           </div>
+          <div className="mx-auto max-w-6xl px-4">
+            <h2 className="mb-1 text-2xl">About the metrics audits</h2>
+            <div className="collapse rounded-tl-lg rounded-tr-lg">
+              <input type="checkbox" className="peer" />
+              <div className="collapse-title bg-[#3D4451] text-primary-content peer-checked:bg-primary peer-checked:text-secondary-content">
+                Performance metrics
+              </div>
+              <div className="collapse-content bg-primary text-primary-content peer-checked:bg-[#3D4451] peer-checked:text-secondary-content">
+                <p className="pt-3">
+                  For website automation and performance monitoring include load
+                  time, page speed, and responsiveness. These metrics measure
+                  how quickly the website loads and how fast the website
+                  responds to user actions. They also measure the website&apos;s
+                  ability to handle heavy traffic without crashing or slowing
+                  down. Performance metrics are important for ensuring a
+                  positive user experience and can impact search engine
+                  rankings.
+                </p>
+              </div>
+            </div>
+            <div className="collapse">
+              <input type="checkbox" className="peer" />
+              <div className="collapse-title bg-[#3D4451] text-primary-content peer-checked:bg-primary peer-checked:text-secondary-content">
+                Accessibility metrics
+              </div>
+              <div className="collapse-content bg-primary text-primary-content peer-checked:bg-[#3D4451] peer-checked:text-secondary-content">
+                <p className="pt-3">
+                  Includes compliance with the Web Content Accessibility
+                  Guidelines (WCAG) and the Americans with Disabilities Act
+                  (ADA). These metrics ensure that the website is accessible to
+                  people with disabilities and that it can be used by a diverse
+                  range of users. Accessibility metrics can also impact search
+                  engine rankings and can help to avoid legal issues related to
+                  non-compliance.
+                </p>
+              </div>
+            </div>
+            <div className="collapse">
+              <input type="checkbox" className="peer" />
+              <div className="collapse-title bg-[#3D4451] text-primary-content peer-checked:bg-primary peer-checked:text-secondary-content">
+                Best practices metrics
+              </div>
+              <div className="collapse-content bg-primary text-primary-content peer-checked:bg-[#3D4451] peer-checked:text-secondary-content">
+                <p className="pt-3">
+                  Entails compliance with industry standards and guidelines.
+                  These metrics ensure that the website follows established best
+                  practices for security, privacy, and usability. Best practices
+                  metrics can also impact search engine rankings and can help to
+                  avoid legal issues related to non-compliance.
+                </p>
+              </div>
+            </div>
+            <div className="collapse rounded-bl-lg rounded-br-lg">
+              <input type="checkbox" className="peer" />
+              <div className="collapse-title bg-[#3D4451] text-primary-content peer-checked:bg-primary peer-checked:text-secondary-content">
+                SEO metrics
+              </div>
+              <div className="collapse-content bg-primary text-primary-content peer-checked:bg-[#3D4451] peer-checked:text-secondary-content">
+                <p className="pt-3">
+                  Refers search engine rankings, organic traffic, and keyword
+                  performance. These metrics measure the website&apos;s
+                  visibility and relevance in search engine results pages
+                  (SERPs) and help to optimize the website for search engines.
+                  SEO metrics are important for increasing organic traffic and
+                  improving the website&apos;s overall performance.
+                </p>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
       <Footer />

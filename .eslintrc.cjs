@@ -7,4 +7,5 @@ module.exports = {
     'airbnb-base',
     'plugin:prettier/recommended',
   ],
+  rules: { 'prettier/prettier': ['error', { endOfLine: 'auto' }] },
 };
