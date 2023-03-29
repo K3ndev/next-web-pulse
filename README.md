@@ -24,12 +24,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Functionality of the site
 
 - [x] Public API
-- [ ] Getting suggestions from Lighthouse
-- [ ] Scanning multiple URLs
-- [ ] Creating an account / signing in with authentication
-- [ ] Automation
-- [ ] Generating a report from the scan results
-- [ ] Caching results from the home page
-- [ ] Input validation (including XSS)
+- [ ] Validation, valid input and xss validation
 - [ ] Password complexity
+- [ ] Creating an account / signing in with authentication
 - [ ] Session management
+- [ ] Automation
+- [ ] User Dashboard
+- [ ] Scanning multiple URLs
+- [ ] Generating a report from the scan results
