@@ -1,8 +1,34 @@
+import { useRef, useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { urlSchema } from '../../shared/helper/validation';
 import { Header, Footer } from '../../shared/component/index';
+import Result from './components/Result';
 
 const Home = () => {
+  const inputUrlRef = useRef();
+  const [isScan, setIsScan] = useState(false);
+  const [isUrlValid, setIsUrlValid] = useState(true);
+
+  const addHttps = (url) => {
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      return `https://${url}`;
+    }
+    return url;
+  };
+
+  const runTest = () => {
+    const validated = urlSchema.safeParse(addHttps(inputUrlRef.current.value));
+
+    if (validated.success === false) {
+      setIsUrlValid(false);
+      return;
+    }
+    setIsUrlValid(true);
+    setIsScan(true);
+  };
+
   return (
     <>
       <Head>
@@ -28,26 +54,29 @@ const Home = () => {
               className="flex flex-col items-center justify-center gap-1 md:flex-row md:gap-2"
             >
               <div
-                className="h-100 1-100 tooltip relative w-full shadow-md md:w-auto"
+                className="h-100 1-100 tooltip relative w-full shadow-md md:tooltip-bottom md:w-auto"
                 data-tip="Enter the URL here"
               >
                 <p className="absolute inset-y-0 flex items-center pl-[0.75rem]">
                   https://
                 </p>
                 <input
+                  ref={inputUrlRef}
                   id="inputURL"
                   autoComplete="none"
                   type="text"
                   placeholder="webpulse.com"
                   // class="ut-none-outline"
-                  className="w-full border border-gray-600 pl-[4.9rem] pt-[0.28rem] pb-[0.28rem] outline-0  md:w-auto"
+                  className={`w-full border pl-[4.9rem] pt-[0.28rem] pb-[0.28rem] outline-0  md:w-auto ${
+                    isUrlValid ? 'border-gray-600' : 'border-red-600'
+                  }`}
                 />
               </div>
 
               <button
-                id="scanInsight"
                 // class="btn ut-hover-opacity"
                 className="flex w-full rounded-md bg-primary px-4 py-[0.375rem] text-white shadow-md hover:bg-[#467989] md:w-auto"
+                onClick={runTest}
               >
                 Run Test
               </button>
@@ -55,116 +84,125 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-3 py-20">
-          <div className="flex w-full flex-col justify-around gap-4 md:flex-row">
-            <div>
-              <h2 className="text-xl font-bold text-gray-600 md:text-2xl">
-                Developer-friendly
-              </h2>
-              <p className="text-slate-500">
-                Easy for Developers. Effortlessly assess website performance
-                with ease using its user-friendly, intuitive design for
-                developers.
-              </p>
-            </div>
-            <div>
-              <h2 className="text-xl font-bold text-gray-600 md:text-2xl">
-                Automation
-              </h2>
-              <p className="text-slate-500">
-                Automate Your Website Monitoring. Say goodbye to manual efforts
-                and continuously monitor with WebPulse&apos;s automation.
-              </p>
-            </div>
-            <div>
-              <h2 className="text-xl font-bold text-gray-600 md:text-2xl">
-                Public Api
-              </h2>
-              <p className="text-slate-500">
-                Enhance Performance Monitoring. Utilize WebPulse&apos;s public
-                API to monitor and maintain your website&apos;s performance.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/*  */}
-        <section className="mx-auto max-w-6xl py-20 px-3 md:pt-9">
-          <div className="flex flex-col items-center justify-center">
-            <div className="w-full max-w-3xl text-center">
-              <h2 className="mb-4 text-xl font-bold text-gray-600 md:text-2xl">
-                Testimonials
-              </h2>
-              <p className="mb-4 pb-2 md:mb-5 md:pb-0">
-                See what our satisfied users have to say about our webPulse!
-              </p>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 gap-10 text-center md:grid-cols-3 md:gap-20">
-            <div className="mb-5 md:mb-0">
-              <div className="mb-4 flex justify-center">
-                <Image
-                  src="/assets/bill.webp"
-                  className="rounded-full shadow-md"
-                  width="150"
-                  height="150"
-                  alt="testimonial_picture"
-                />
+        {!isScan ? (
+          <>
+            <section className="mx-auto max-w-6xl px-3 py-20">
+              <div className="flex w-full flex-col justify-around gap-4 md:flex-row">
+                <div>
+                  <h2 className="text-xl font-bold text-gray-600 md:text-2xl">
+                    Developer-friendly
+                  </h2>
+                  <p className="text-slate-500">
+                    Easy for Developers. Effortlessly assess website performance
+                    with ease using its user-friendly, intuitive design for
+                    developers.
+                  </p>
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-gray-600 md:text-2xl">
+                    Automation
+                  </h2>
+                  <p className="text-slate-500">
+                    Automate Your Website Monitoring. Say goodbye to manual
+                    efforts and continuously monitor with WebPulse&apos;s
+                    automation.
+                  </p>
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-gray-600 md:text-2xl">
+                    Public Api
+                  </h2>
+                  <p className="text-slate-500">
+                    Enhance Performance Monitoring. Utilize WebPulse&apos;s
+                    public API to monitor and maintain your website&apos;s
+                    performance.
+                  </p>
+                </div>
               </div>
-              <h3 className="mb-3 text-xl font-bold text-gray-600 md:text-2xl">
-                Bill Ofrights
-              </h3>
-              <p className="mb-3 text-primary">Web Developer</p>
-              <p className="px-4 md:px-10">
-                webPulse is a game-changer! It helped me identify and fix issues
-                on my site, improving my user experience and ultimately boosting
-                my business.
-              </p>
-            </div>
-            <div className="mb-5 md:mb-0">
-              <div className="mb-4 flex justify-center">
-                <Image
-                  src="/assets/mark.webp"
-                  className="rounded-full shadow-md"
-                  width="150"
-                  height="150"
-                  alt="testimonial_picture"
-                />
+            </section>
+            <section className="mx-auto max-w-6xl py-20 px-3 md:pt-9">
+              <div className="flex flex-col items-center justify-center">
+                <div className="w-full max-w-3xl text-center">
+                  <h2 className="mb-4 text-xl font-bold text-gray-600 md:text-2xl">
+                    Testimonials
+                  </h2>
+                  <p className="mb-4 pb-2 md:mb-5 md:pb-0">
+                    See what our satisfied users have to say about our webPulse!
+                  </p>
+                </div>
               </div>
-              <h3 className="mb-3 text-xl font-bold text-gray-600 md:text-2xl">
-                Marky Zuckerpunch
-              </h3>
-              <p className="mb-3 text-primary">Digital Marketing Specialist</p>
-              <p className="px-4 md:px-10">
-                As a non-technical person, I was skeptical about using a website
-                tester app, but this one exceeded my expectations. It was
-                user-friendly and helped me detect issues that I would have
-                never noticed on my own.
-              </p>
-            </div>
-            <div className="mb-5 md:mb-0">
-              <div className="mb-4 flex justify-center">
-                <Image
-                  src="/assets/elon.webp"
-                  className="rounded-full shadow-md"
-                  width="150"
-                  height="150"
-                  alt="testimonial_picture"
-                />
+              <div className="grid grid-cols-1 gap-10 text-center md:grid-cols-3 md:gap-20">
+                <div className="mb-5 md:mb-0">
+                  <div className="mb-4 flex justify-center">
+                    <Image
+                      src="/assets/bill.webp"
+                      className="rounded-full shadow-md"
+                      width="150"
+                      height="150"
+                      alt="testimonial_picture"
+                    />
+                  </div>
+                  <h3 className="mb-3 text-xl font-bold text-gray-600 md:text-2xl">
+                    Bill Ofrights
+                  </h3>
+                  <p className="mb-3 text-primary">Web Developer</p>
+                  <p className="px-4 md:px-10">
+                    webPulse is a game-changer! It helped me identify and fix
+                    issues on my site, improving my user experience and
+                    ultimately boosting my business.
+                  </p>
+                </div>
+                <div className="mb-5 md:mb-0">
+                  <div className="mb-4 flex justify-center">
+                    <Image
+                      src="/assets/mark.webp"
+                      className="rounded-full shadow-md"
+                      width="150"
+                      height="150"
+                      alt="testimonial_picture"
+                    />
+                  </div>
+                  <h3 className="mb-3 text-xl font-bold text-gray-600 md:text-2xl">
+                    Marky Zuckerpunch
+                  </h3>
+                  <p className="mb-3 text-primary">
+                    Digital Marketing Specialist
+                  </p>
+                  <p className="px-4 md:px-10">
+                    As a non-technical person, I was skeptical about using a
+                    website tester app, but this one exceeded my expectations.
+                    It was user-friendly and helped me detect issues that I
+                    would have never noticed on my own.
+                  </p>
+                </div>
+                <div className="mb-5 md:mb-0">
+                  <div className="mb-4 flex justify-center">
+                    <Image
+                      src="/assets/elon.webp"
+                      className="rounded-full shadow-md"
+                      width="150"
+                      height="150"
+                      alt="testimonial_picture"
+                    />
+                  </div>
+                  <h3 className="mb-3 text-xl font-bold text-gray-600 md:text-2xl">
+                    Ewlon Masks
+                  </h3>
+                  <p className="mb-3 text-primary">UX Designer</p>
+                  <p className="px-4 md:px-10">
+                    I&apos;ve been using webPulse for a while now, and it has
+                    saved me countless hours of manual testing. The detailed
+                    reports and actionable insights have allowed me to make
+                    informed decisions and improve my website&apos;s
+                    performance.
+                  </p>
+                </div>
               </div>
-              <h3 className="mb-3 text-xl font-bold text-gray-600 md:text-2xl">
-                Ewlon Masks
-              </h3>
-              <p className="mb-3 text-primary">UX Designer</p>
-              <p className="px-4 md:px-10">
-                I&apos;ve been using webPulse for a while now, and it has saved
-                me countless hours of manual testing. The detailed reports and
-                actionable insights have allowed me to make informed decisions
-                and improve my website&apos;s performance.
-              </p>
-            </div>
-          </div>
-        </section>
+            </section>
+          </>
+        ) : (
+          <Result url={inputUrlRef.current.value} />
+        )}
 
         {/*  */}
         <section className="mx-auto max-w-6xl px-3 py-20">
