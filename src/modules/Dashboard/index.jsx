@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
+import {
+  useUser,
+  useSupabaseClient,
+  useSession,
+} from '@supabase/auth-helpers-react';
 import { Header, Footer } from '../../shared/component/index';
 
 function Dashboard() {
@@ -15,6 +20,44 @@ function Dashboard() {
     }, 5000);
     return () => clearTimeout(timer);
   }, []);
+
+  // database
+  const session = useSession();
+  const supabase = useSupabaseClient();
+  const user = useUser();
+  const [loading, setLoading] = useState(true);
+  const [scanResult, setScanResult] = useState(null);
+
+  async function getProfile() {
+    try {
+      setLoading(true);
+
+      const { data, error, status } = await supabase
+        .from('profiles')
+        .select(`scan_result`)
+        .eq('id', user.id)
+        .single();
+
+      if (error && status !== 406) {
+        throw error;
+      }
+
+      if (data) {
+        setScanResult(data.scan_result);
+      }
+    } catch (error) {
+      // console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+  useEffect(() => {
+    getProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
+
+  // console.log(scanResult);
+
   return (
     <>
       <Head>
@@ -65,8 +108,37 @@ function Dashboard() {
                   </span>
                 </label>
                 <p>sample url: https://google.com</p>
-                <p>sample url: https://google.com,https://www.facebook</p>
+                <p>sample url: https://google.com,https://www.facebook.com</p>
               </div>
+            </div>
+
+            {/* result */}
+            <div className="mt-10">
+              <h2 className="text-lg text-primary">Your Scan Result</h2>
+              {!loading &&
+                scanResult.map((item) => {
+                  return (
+                    <div key={item.url} className="flex justify-between">
+                      <div className="flex gap-2">
+                        <div>rank: {item.ranks.hundos}</div>
+                        <p>{item.url}</p>
+                      </div>
+                      <div className="flex gap-3">
+                        <p>
+                          accessibility: {item.lighthouse.accessibility * 100}
+                        </p>
+                        <p>
+                          bestPractices: {item.lighthouse.bestPractices * 100}
+                        </p>
+                        <p>performance: {item.lighthouse.performance * 100}</p>
+                        <p>seo: {item.lighthouse.seo * 100}</p>
+                        <p className="ml-2">
+                          Total score: {item.lighthouse.total}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </section>
@@ -77,3 +149,5 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+// todo disable around 10sec the button after scan

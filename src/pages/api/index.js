@@ -46,7 +46,7 @@ export default async function handler(req, res) {
   // eslint-disable-next-line no-promise-executor-return
   await new Promise((resolve) => setTimeout(resolve, 10000));
   try {
-    const results = await PerfLeaderboard(URLS(), 2, options);
+    const results = await PerfLeaderboard(URLS(), 3, options);
     res.status(200).json(results);
   } catch (error) {
     res.status(500).json({ error: 'Error occurred while running tests' });
