@@ -1,4 +1,5 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+[Video url - preview](https://drive.google.com/file/d/1--V8SFUE0Roew-rBs3kz6Suk_zlN23Ec/view)
+
 
 ## Getting Started
 
@@ -10,8 +11,7 @@ npm run build
 npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. 
 ---
 
 <!-- ## Limiting the API request (our server is only free tier)
