@@ -19,7 +19,9 @@ const Home = () => {
   };
 
   const runTest = () => {
-    const validated = urlSchema.safeParse(addHttps(inputUrlRef.current.value));
+    const validated = urlSchema.safeParse(
+      addHttps(inputUrlRef.current.value.split(' ').join(''))
+    );
 
     if (validated.success === false) {
       setIsUrlValid(false);
@@ -200,7 +202,9 @@ const Home = () => {
             </section>
           </>
         ) : (
-          <Result url={addHttps(inputUrlRef?.current?.value)} />
+          <Result
+            url={addHttps(inputUrlRef?.current?.value.split(' ').join(''))}
+          />
         )}
 
         {/*  */}

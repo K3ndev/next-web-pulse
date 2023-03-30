@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import {
   useUser,
@@ -9,29 +9,17 @@ import { Header, Footer } from '../../shared/component/index';
 
 function Dashboard() {
   const [isNotif, setIsNotif] = useState(true);
-
-  const runScanHandler = () => {
-    // console.log('hi');
-  };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsNotif(false);
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, []);
+  const inputUrl = useRef();
+  const [loading, setLoading] = useState(false);
+  const [scanResult, setScanResult] = useState(null);
 
   // database
   const session = useSession();
   const supabase = useSupabaseClient();
   const user = useUser();
-  const [loading, setLoading] = useState(true);
-  const [scanResult, setScanResult] = useState(null);
 
   async function getProfile() {
     try {
-      setLoading(true);
-
       const { data, error, status } = await supabase
         .from('profiles')
         .select(`scan_result`)
@@ -47,16 +35,54 @@ function Dashboard() {
       }
     } catch (error) {
       // console.log(error);
-    } finally {
-      setLoading(false);
     }
   }
+
+  async function updateProfile({ result }) {
+    try {
+      const updates = {
+        id: user.id,
+        scan_result: result,
+        updated_at: new Date().toISOString(),
+      };
+
+      const { error } = await supabase.from('profiles').upsert(updates);
+      if (error) throw error;
+    } catch (error) {
+      // console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsNotif(false);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     getProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
-  // console.log(scanResult);
+  const fetchResult = async (URL) => {
+    setLoading(true);
+    const res = await fetch(`/api?url=${URL}`);
+    const data = await res.json();
+    getProfile();
+    setTimeout(() => {
+      setLoading(false);
+    }, 10000);
+    return data;
+  };
+  const runScanHandler = () => {
+    if (loading === true) {
+      return;
+    }
+    fetchResult(inputUrl.current.value.split(' ').join('')).then((data) => {
+      updateProfile({ result: data });
+    });
+  };
 
   return (
     <>
@@ -83,6 +109,20 @@ function Dashboard() {
             </div>
           </div>
         )}
+        {loading && (
+          <div className="toast-center toast toast-top absolute z-50 max-w-xl">
+            <div className="w-max rounded-xl bg-primary p-4">
+              <div>
+                <p className="text-white">
+                  Scanning is happening on server side, Please standby
+                </p>
+                <p className="text-white">
+                  Updating is happening on client side, Please standby
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         <section className="py-20">
           <div className="mx-auto max-w-6xl rounded-md border bg-white px-5 py-10 shadow-sm">
@@ -96,12 +136,17 @@ function Dashboard() {
                 </label>
                 <label className="input-group">
                   <input
+                    ref={inputUrl}
                     type="text"
                     placeholder="https://google.com, ..."
                     className="input-bordered input"
                   />
                   <span
-                    className="cursor-pointer hover:bg-primary hover:text-white"
+                    className={`cursor-pointer ${
+                      loading === false
+                        ? 'hover:text-white hover:bg-primary'
+                        : 'bg-red-600 text-white'
+                    }`}
                     onClick={runScanHandler}
                   >
                     Run Scan
@@ -115,30 +160,29 @@ function Dashboard() {
             {/* result */}
             <div className="mt-10">
               <h2 className="text-lg text-primary">Your Scan Result</h2>
-              {!loading &&
-                scanResult.map((item) => {
-                  return (
-                    <div key={item.url} className="flex justify-between">
-                      <div className="flex gap-2">
-                        <div>rank: {item.ranks.hundos}</div>
-                        <p>{item.url}</p>
-                      </div>
-                      <div className="flex gap-3">
-                        <p>
-                          accessibility: {item.lighthouse.accessibility * 100}
-                        </p>
-                        <p>
-                          bestPractices: {item.lighthouse.bestPractices * 100}
-                        </p>
-                        <p>performance: {item.lighthouse.performance * 100}</p>
-                        <p>seo: {item.lighthouse.seo * 100}</p>
-                        <p className="ml-2">
-                          Total score: {item.lighthouse.total}
-                        </p>
-                      </div>
+              {scanResult?.map((item) => {
+                return (
+                  <div key={item.url} className="flex justify-between">
+                    <div className="flex gap-2">
+                      <div>rank: {item.ranks.hundos}</div>
+                      <p>{item.url}</p>
                     </div>
-                  );
-                })}
+                    <div className="flex gap-3">
+                      <p>
+                        accessibility: {item.lighthouse.accessibility * 100}
+                      </p>
+                      <p>
+                        bestPractices: {item.lighthouse.bestPractices * 100}
+                      </p>
+                      <p>performance: {item.lighthouse.performance * 100}</p>
+                      <p>seo: {item.lighthouse.seo * 100}</p>
+                      <p className="ml-2">
+                        Total score: {item.lighthouse.total}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>

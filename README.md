@@ -31,7 +31,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [x] Creating an account / signing in
 - [x] Authentication
 - [x] Session management
-- [ ] User Dashboard
-- [ ] Scanning multiple urls from user dashboard
+- [x] Simple user Dashboard
+- [x] Scanning multiple urls from user dashboard
 - [ ] Generating a pdf report from user dashboard
 - [ ] Automation from user dashboard
+- [ ] Saving the prev scan
