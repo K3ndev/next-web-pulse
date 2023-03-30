@@ -197,7 +197,7 @@ export function Header() {
                 </button>
                 <Link
                   href="/dashboard"
-                  className="btn-primary flex cursor-pointer items-center gap-1 rounded-md border py-1 px-4 text-slate-600 text-white"
+                  className="btn-primary flex cursor-pointer items-center gap-1 rounded-md border py-1 px-4 text-white"
                 >
                   <div>{getEmailUsername(session.user.email)}</div>
                 </Link>

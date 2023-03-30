@@ -1,27 +1,37 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import PerfLeaderboard from 'performance-leaderboard';
 
-// const API_KEY = '1djnewjnk32jndew';
+// sample request
+// localhost:3000/api?url=https://www.google.com,https://www.facebook.com
+// it should have https://
 
 export default async function handler(req, res) {
-  const { url } = req.query;
-  // sample request
-  // localhost:3000/api?url=https://www.google.com,https://www.facebook.com/&key=1djnewjnk32jndew
+  const { url, db } = req.query;
 
-  // Check API key
-  // if (key !== API_KEY) {
-  //   res.status(401).json({ error: 'Unauthorized' });
-  //   return;
-  // }
+  const URLS = () => {
+    return url.split(',');
+  };
+  const checkerUrl = () => {
+    return URLS().some((item) => {
+      return !item.startsWith('http://') && !item.startsWith('https://');
+    });
+  };
 
   // checker
   if (url === undefined) {
-    res.status(400).json({ error: 'Bad Request' });
+    res.status(400).json({ error: 'Bad Request: url parameter is missing' });
     return;
   }
+  if (checkerUrl() === true) {
+    res
+      .status(400)
+      .json({ error: 'Bad Request: it should have https or http' });
+    return;
+  }
+  if (db === 'true') {
+    // console.log('connect database');
+  }
 
-  const URLS = url.split(',');
-  // console.log(URLS);
   const options = {
     axePuppeteerTimeout: 30000, // 30 seconds
     writeLogs: false, // Store audit data
@@ -36,14 +46,9 @@ export default async function handler(req, res) {
   // eslint-disable-next-line no-promise-executor-return
   await new Promise((resolve) => setTimeout(resolve, 10000));
   try {
-    // const urls = ['https://www.google.com'];
-    const results = await PerfLeaderboard(URLS, 2, options);
+    const results = await PerfLeaderboard(URLS(), 2, options);
     res.status(200).json(results);
   } catch (error) {
-    // console.error(error);
     res.status(500).json({ error: 'Error occurred while running tests' });
   }
 }
-
-// url
-// url need to have https://
