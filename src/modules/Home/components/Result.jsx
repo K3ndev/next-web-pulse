@@ -38,10 +38,7 @@ function Result(props) {
         <div className="flex justify-between border-b border-b-[#f3f4f6] pb-3 align-baseline">
           <div className="flex flex-col">
             <h1>URL</h1>
-            <p>
-              <span className="hidden md:inline">https://</span>
-              {url}
-            </p>
+            <p>{url}</p>
           </div>
           <div className="flex flex-col">
             <h2>timestamp</h2>
@@ -62,7 +59,7 @@ function Result(props) {
           <p>
             lighthouse <span className="hidden md:inline">version</span>:
             {/* {version */}
-            {result?.[0]?.lighthouse.version || 'loading'}
+            {result?.[0]?.lighthouse?.version || 'loading'}
           </p>
         </div>
       </div>
@@ -79,7 +76,7 @@ function Result(props) {
                   result?.[0]?.lighthouse && 'text-[#4ade80]'
                 }`}
               >
-                {result?.[0]?.lighthouse.total || 'loading'}
+                {result?.[0]?.lighthouse?.total || 'loading'}
               </p>
               <span>/</span>
               <p>400</p>
@@ -104,19 +101,19 @@ function Result(props) {
           <div className="align-center flex h-[3.5rem] justify-between border-b border-b-[#f3f4f6] pb-3">
             <h1>Transferred Assets</h1>
             <div className="align-center flex">
-              <p>total: {result?.[0]?.weight.total || 'loading'}</p>
+              <p>total: {result?.[0]?.weight?.total || 'loading'}</p>
             </div>
           </div>
           <div className="mt-3 flex flex-row justify-between">
             <div>
-              <p>Image: {result?.[0]?.weight.image || 'loading'}</p>
-              <p>Script: {result?.[0]?.weight.script || 'loading'}</p>
-              <p>Document:{result?.[0]?.weight.document || 'loading'}</p>
+              <p>Image: {result?.[0]?.weight?.image || 'loading'}</p>
+              <p>Script: {result?.[0]?.weight?.script || 'loading'}</p>
+              <p>Document:{result?.[0]?.weight?.document || 'loading'}</p>
             </div>
             <div>
-              <p>Font: {result?.[0]?.weight.font || 'loading'}</p>
-              <p>Stylesheet: {result?.[0]?.weight.stylesheet || 'loading'}</p>
-              <p>ThirdParty: {result?.[0]?.weight.thirdParty || 'loading'}</p>
+              <p>Font: {result?.[0]?.weight?.font || 'loading'}</p>
+              <p>Stylesheet: {result?.[0]?.weight?.stylesheet || 'loading'}</p>
+              <p>ThirdParty: {result?.[0]?.weight?.thirdParty || 'loading'}</p>
             </div>
           </div>
         </div>
@@ -132,7 +129,7 @@ function Result(props) {
           </p>
         </div>
         <div>
-          <Link className="btn-light btn shadow-md" href="/login">
+          <Link className="btn-light btn shadow-md" href="/dashboard">
             Goto Account <ArrowRightSvg />
           </Link>
         </div>
@@ -150,7 +147,7 @@ function Result(props) {
               <p>
                 Performance:{' '}
                 <span className="text-success">
-                  {result?.[0]?.lighthouse.performance
+                  {result?.[0]?.lighthouse?.performance
                     ? result[0].lighthouse.performance * 100
                     : 'loading'}
                 </span>
@@ -208,7 +205,7 @@ function Result(props) {
               <p>
                 Accessibility:{' '}
                 <span className="text-success">
-                  {result?.[0]?.lighthouse.accessibility
+                  {result?.[0]?.lighthouse?.accessibility
                     ? result[0].lighthouse.accessibility * 100
                     : 'loading'}
                 </span>
@@ -265,7 +262,7 @@ function Result(props) {
               <p>
                 BestPractices:{' '}
                 <span className="text-success">
-                  {result?.[0]?.lighthouse.bestPractices
+                  {result?.[0]?.lighthouse?.bestPractices
                     ? result[0].lighthouse.bestPractices * 100
                     : 'loading'}
                 </span>
@@ -300,7 +297,7 @@ function Result(props) {
               <p>
                 Seo:{' '}
                 <span className="text-success">
-                  {result?.[0]?.lighthouse.seo
+                  {result?.[0]?.lighthouse?.seo
                     ? result[0].lighthouse.seo * 100
                     : 'loading'}
                 </span>

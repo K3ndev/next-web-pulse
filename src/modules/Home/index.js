@@ -200,7 +200,7 @@ const Home = () => {
             </section>
           </>
         ) : (
-          <Result url={inputUrlRef?.current?.value} />
+          <Result url={addHttps(inputUrlRef?.current?.value)} />
         )}
 
         {/*  */}

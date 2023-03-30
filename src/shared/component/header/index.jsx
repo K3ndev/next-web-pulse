@@ -1,10 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
 
 // eslint-disable-next-line import/prefer-default-export
 export function Header() {
-  const [isLoggedIn] = useState(false);
+  const session = useSession();
+  const supabase = useSupabaseClient();
   const [previousScroll, setPreviousScroll] = useState(0);
   const [headerClass, setHeaderClass] = useState('custom-header-none');
   const [toggle, setToggle] = useState(false);
@@ -69,6 +71,14 @@ export function Header() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const getEmailUsername = (email) => {
+    const atIndex = email.indexOf('@');
+    if (atIndex !== -1) {
+      return email.slice(0, atIndex);
+    }
+    return email;
+  };
 
   return (
     <>
@@ -154,9 +164,9 @@ export function Header() {
                 Github
               </a>
             </li>
-            {!isLoggedIn && (
+            {!session ? (
               <Link
-                href="/login"
+                href="/dashboard"
                 className=" flex cursor-pointer items-center gap-1 rounded-md border border-gray-300 py-1 px-4 text-slate-600 hover:bg-[#F8F9FA]"
               >
                 <div>Account</div>
@@ -177,6 +187,21 @@ export function Header() {
                   />
                 </svg>
               </Link>
+            ) : (
+              <>
+                <button
+                  onClick={() => supabase.auth.signOut()}
+                  className="flex cursor-pointer items-center gap-1 rounded-md border border-gray-300 py-1 px-4 text-slate-600 hover:bg-[#F8F9FA]"
+                >
+                  <div>Logout</div>
+                </button>
+                <Link
+                  href="/dashboard"
+                  className="btn-primary flex cursor-pointer items-center gap-1 rounded-md border py-1 px-4 text-slate-600 text-white"
+                >
+                  <div>{getEmailUsername(session.user.email)}</div>
+                </Link>
+              </>
             )}
           </ul>
 
